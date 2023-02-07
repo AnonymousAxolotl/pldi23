@@ -1,0 +1,43 @@
+[package]
+name = "rust-ppg-hw"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+freertos-rust = { path = "FreeRTOS-rust/freertos-rust" }
+
+cortex-m = "*"
+cortex-m-rt = "*"
+rtt-target = { version = "*", features = ["cortex-m"] }
+panic-halt = "*"
+heapless = "*"
+
+embedded-dma = "*"
+embedded-hal = "*"
+shared-bus = { version = "*", features = ["cortex-m"] }
+embedded-graphics = "*"
+profont = "*"
+max3010x = "*"
+ssd1306 = "*"
+
+
+[dependencies.stm32f4xx-hal]
+version = "*"
+features = ["rt", "stm32f407"]
+
+[build-dependencies]
+freertos-cargo-build = { path = "FreeRTOS-rust/freertos-cargo-build" }
+
+
+# this lets you use `cargo fix`!
+[[bin]]
+name = "rust-ppg-hw"
+test = false
+bench = false
+
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations
